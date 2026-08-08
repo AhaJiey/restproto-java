@@ -17,13 +17,13 @@ import java.io.IOException;
  */
 @Component
 @Order(Ordered.LOWEST_PRECEDENCE)
-public class ThrowingFilter extends OncePerRequestFilter {
+public class ExceptionThrowingFilter extends OncePerRequestFilter {
 
     /** 触发普通运行时异常的路径 */
-    public static final String RUNTIME_PATH = "/test/filter-runtime";
+    public static final String RUNTIME_PATH = "/exception-test/filter-runtime";
 
     /** 触发业务异常的路径 */
-    public static final String EXCEPTION_PATH = "/test/filter-exception";
+    public static final String EXCEPTION_PATH = "/exception-test/filter-exception";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

@@ -1,6 +1,5 @@
 package my.restproto.common.restful.exception.support;
 
-import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -21,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Validated
 @RestController
-@RequestMapping("/test")
-public class TestController {
+@RequestMapping("/exception-test")
+public class ExceptionTestController {
 
     /** 正常返回接口 */
     @GetMapping("/ok")

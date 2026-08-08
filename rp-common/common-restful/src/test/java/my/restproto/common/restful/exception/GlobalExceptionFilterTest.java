@@ -23,7 +23,7 @@ class GlobalExceptionFilterTest {
     /** 兜底拦截过滤器抛出的普通异常: 500 */
     @Test
     void filterRuntimeException() throws Exception {
-        mockMvc.perform(get("/test/filter-runtime"))
+        mockMvc.perform(get("/exception-test/filter-runtime"))
                 .andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.code").value(1))
                 .andExpect(jsonPath("$.msg").value("系统异常, 请稍后重试"));
@@ -32,7 +32,7 @@ class GlobalExceptionFilterTest {
     /** 兜底拦截过滤器抛出的业务异常: 透传状态码与消息 */
     @Test
     void filterCommonException() throws Exception {
-        mockMvc.perform(get("/test/filter-exception"))
+        mockMvc.perform(get("/exception-test/filter-exception"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value(1))
                 .andExpect(jsonPath("$.msg").value("过滤器业务异常"));
