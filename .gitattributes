@@ -1,0 +1,7 @@
+# git files
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# markdown files
+*.md text eol=lf
+
