@@ -9,6 +9,7 @@ spring-boot-bom = { module = "org.springframework.boot:spring-boot-dependencies"
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
+spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 spring-security-test = { module = "org.springframework.security:spring-security-test" }
 lombok = { module = "org.projectlombok:lombok" }

@@ -13,6 +13,9 @@ dependencies {
     // security, 作为公共基础透传下游, 提供无状态安全链与注解授权
     api(libs.spring.boot.starter.security)
 
+    // AOP, 为 Action 动态权限切面提供代理支持
+    api(libs.spring.boot.starter.aop)
+
     // Lombok, 各编译期配置独立声明平台约束以覆盖版本管理
     compileOnly(platform(libs.spring.boot.bom))
     annotationProcessor(platform(libs.spring.boot.bom))
