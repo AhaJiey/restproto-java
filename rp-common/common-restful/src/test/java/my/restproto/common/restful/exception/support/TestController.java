@@ -1,5 +1,6 @@
 package my.restproto.common.restful.exception.support;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
