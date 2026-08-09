@@ -9,14 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 /**
  * 未认证入口, 输出 401 与 CommonResult 响应体
  */
-@Component
 @RequiredArgsConstructor
 public class UnAuthHandler implements AuthenticationEntryPoint {
 

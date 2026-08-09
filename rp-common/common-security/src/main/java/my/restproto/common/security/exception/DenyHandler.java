@@ -9,14 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 /**
  * 权限拒绝处理器, 输出 403 与 CommonResult 响应体
  */
-@Component
 @RequiredArgsConstructor
 public class DenyHandler implements AccessDeniedHandler {
 

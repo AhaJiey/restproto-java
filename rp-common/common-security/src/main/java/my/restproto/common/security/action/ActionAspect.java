@@ -8,13 +8,11 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 
 /**
  * Action 动态权限切面, 方法执行前校验当前用户 authorities 是否包含操作权限
  */
 @Aspect
-@Component
 public class ActionAspect {
 
     /** 拦截标注 Action 的方法, 无对应权限则抛 AccessDeniedException 交由安全链处理 */

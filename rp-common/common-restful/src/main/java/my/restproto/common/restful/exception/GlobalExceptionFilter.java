@@ -11,7 +11,6 @@ import my.restproto.common.restful.tools.ResponseWriter;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -20,7 +19,6 @@ import java.io.IOException;
  * 全局异常过滤器, 兜底拦截逃逸出 MVC 层的异常, 统一输出 CommonResult
  */
 @Slf4j
-@Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RequiredArgsConstructor
 public class GlobalExceptionFilter extends OncePerRequestFilter {

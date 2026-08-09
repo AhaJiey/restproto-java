@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
@@ -14,7 +13,6 @@ import java.io.IOException;
  * 统一响应写入器, 将 ResponseEntity 依次写状态码/响应头/JSON 响应体, 供 filter 框架复用
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class ResponseWriter {
 

@@ -1,7 +1,5 @@
 package my.restproto.common.security.action;
 
-import org.springframework.stereotype.Component;
-
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 操作注册表, 维护代码中全部 Action 权限标识
  */
-@Component
 public class ActionCollections {
 
     private final Set<String> actions = ConcurrentHashMap.newKeySet();
