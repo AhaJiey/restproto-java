@@ -1,6 +1,5 @@
 package my.restproto.common.restful.exception;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,9 +7,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import my.restproto.common.restful.model.CommonResult;
+import my.restproto.common.restful.tools.ResponseWriter;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -25,8 +25,8 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class GlobalExceptionFilter extends OncePerRequestFilter {
 
-    /** JSON 序列化器 */
-    private final ObjectMapper objectMapper;
+    /** 统一响应写入器 */
+    private final ResponseWriter responseWriter;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -34,22 +34,14 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (CommonException ex) {
-            writeResult(response, ex.getStatus(), CommonResult.fail(ex.getMessage(), ex.getData()));
+            responseWriter.write(response,
+                    ResponseEntity.status(ex.getStatus()).body(CommonResult.fail(ex.getMessage(), ex.getData())));
         } catch (Exception ex) {
             log.error("逃逸异常: {}", ex.getMessage(), ex);
-            writeResult(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, CommonResult.fail("系统异常, 请稍后重试"));
+            responseWriter.write(response, ResponseEntity
+                    .status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR)
+                    .body(CommonResult.fail("系统异常, 请稍后重试"))
+            );
         }
-    }
-
-    /** 以 CommonResult 序列化 JSON 写回响应 */
-    private void writeResult(HttpServletResponse response, int status, CommonResult<?> result) throws IOException {
-        if (response.isCommitted()) {
-            log.warn("响应已提交, 无法输出异常结果, 状态码 {}", status);
-            return;
-        }
-        response.setStatus(status);
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setCharacterEncoding("UTF-8");
-        objectMapper.writeValue(response.getWriter(), result);
     }
 }
