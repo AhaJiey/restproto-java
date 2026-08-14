@@ -1,10 +1,10 @@
-package my.restproto.common.restful.exception.support;
+package my.restproto.common.exception.intergration.support;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import my.restproto.common.restful.exception.CommonException;
+import my.restproto.common.exception.CommonException;
 import my.restproto.common.restful.model.CommonResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package my.restproto.common.restful.exception;
+package my.restproto.common.exception.intergration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

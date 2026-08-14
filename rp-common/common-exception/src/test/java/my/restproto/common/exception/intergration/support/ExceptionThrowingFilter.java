@@ -1,10 +1,10 @@
-package my.restproto.common.restful.exception.support;
+package my.restproto.common.exception.intergration.support;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import my.restproto.common.restful.exception.CommonException;
+import my.restproto.common.exception.CommonException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

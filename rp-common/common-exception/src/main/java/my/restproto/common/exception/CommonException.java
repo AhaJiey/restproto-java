@@ -1,4 +1,4 @@
-package my.restproto.common.restful.exception;
+package my.restproto.common.exception;
 
 import lombok.Getter;
 

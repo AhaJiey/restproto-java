@@ -1,4 +1,4 @@
-package my.restproto.common.restful.exception;
+package my.restproto.common.exception;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package my.restproto.common.restful;
+package my.restproto.common.exception;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
