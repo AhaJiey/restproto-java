@@ -1,8 +1,8 @@
-package my.restproto.common.mysql.intergration;
+package my.restproto.common.mysql.integration;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import my.restproto.common.mysql.intergration.support.TestEntity;
-import my.restproto.common.mysql.intergration.support.TestMapper;
+import my.restproto.common.mysql.integration.support.TestEntity;
+import my.restproto.common.mysql.integration.support.TestMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package my.restproto.common.exception.intergration.support;
+package my.restproto.common.exception.integration.support;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;

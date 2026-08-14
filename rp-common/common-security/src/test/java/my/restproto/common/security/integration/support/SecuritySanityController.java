@@ -1,4 +1,4 @@
-package my.restproto.common.security.sanity.support;
+package my.restproto.common.security.integration.support;
 
 import my.restproto.common.restful.model.CommonResult;
 import org.springframework.security.access.AccessDeniedException;

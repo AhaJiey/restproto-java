@@ -1,4 +1,4 @@
-package my.restproto.common.mysql.intergration.support;
+package my.restproto.common.mysql.integration.support;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
