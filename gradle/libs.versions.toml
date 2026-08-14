@@ -2,6 +2,7 @@
 [versions]
 junit = "5.12.2"
 spring-boot = "3.5.16"
+mybatis-plus = "3.5.17"
 
 [libraries]
 # spring boot, 版本由 spring-boot-bom 平台约束统一管理
@@ -11,8 +12,23 @@ spring-boot-starter-validation = { module = "org.springframework.boot:spring-boo
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
 spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
 spring-security-test = { module = "org.springframework.security:spring-security-test" }
 lombok = { module = "org.projectlombok:lombok" }
+
+# jdbc, 版本由 spring-boot-bom 平台约束统一管理
+spring-boot-starter-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc" }
+
+# mybatis-plus, 版本显式声明
+mybatis-plus-spring-boot3-starter = { module = "com.baomidou:mybatis-plus-spring-boot3-starter", version.ref = "mybatis-plus" }
+mybatis-plus-jsqlparser = { module = "com.baomidou:mybatis-plus-jsqlparser", version.ref = "mybatis-plus" }
+
+# mysql 驱动, 版本由 spring-boot-bom 平台约束统一管理
+mysql-connector-j = { module = "com.mysql:mysql-connector-j" }
+
+# testcontainers, 版本由 spring-boot-bom 平台约束统一管理
+testcontainers-mysql = { module = "org.testcontainers:mysql" }
+testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter" }
 
 # junit, 版本由 junit-bom 平台约束统一管理
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
