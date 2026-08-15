@@ -13,3 +13,6 @@ desktop.ini
 
 # gradle
 .gradle/
+
+# compile
+build/
