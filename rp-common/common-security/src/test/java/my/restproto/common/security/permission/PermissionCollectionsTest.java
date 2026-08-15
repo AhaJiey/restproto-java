@@ -1,4 +1,4 @@
-package my.restproto.common.security.action;
+package my.restproto.common.security.permission;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * 操作注册表单元测试
+ * 权限注册表单元测试
  */
-class ActionCollectionsTest {
+class PermissionCollectionsTest {
 
-    private final ActionCollections collections = new ActionCollections();
+    private final PermissionCollections collections = new PermissionCollections();
 
     /** 注册后 contains 为 true 且 list 包含 */
     @Test

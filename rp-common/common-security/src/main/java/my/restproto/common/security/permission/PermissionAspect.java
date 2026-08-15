@@ -1,6 +1,6 @@
-package my.restproto.common.security.action;
+package my.restproto.common.security.permission;
 
-import my.restproto.common.security.annotations.Action;
+import my.restproto.common.security.annotations.Permission;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -10,14 +10,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * Action 动态权限切面, 方法执行前校验当前用户 authorities 是否包含操作权限
+ * Permission 动态权限切面, 方法执行前校验当前用户 authorities 是否包含对应权限
  */
 @Aspect
-public class ActionAspect {
+public class PermissionAspect {
 
-    /** 拦截标注 Action 的方法, 无对应权限则抛 AccessDeniedException 交由安全链处理 */
-    @Before("@annotation(action)")
-    public void checkAuthority(JoinPoint joinPoint, Action action) {
+    /** 拦截标注 Permission 的方法, 无对应权限则抛 AccessDeniedException 交由安全链处理 */
+    @Before("@annotation(permission)")
+    public void checkAuthority(JoinPoint joinPoint, Permission permission) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -28,7 +28,7 @@ public class ActionAspect {
         boolean authorized = authentication.getAuthorities()
                 .stream()
                 .anyMatch(authority ->
-                        authority.getAuthority().equals(action.value()));
+                        authority.getAuthority().equals(permission.value()));
 
         if (!authorized) {
             throw new AccessDeniedException("无权限访问");

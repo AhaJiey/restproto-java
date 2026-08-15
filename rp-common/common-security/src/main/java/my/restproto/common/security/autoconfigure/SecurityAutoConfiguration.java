@@ -3,8 +3,8 @@ package my.restproto.common.security.autoconfigure;
 import my.restproto.common.restful.autoconfigure.RestfulAutoConfiguration;
 import my.restproto.common.restful.tools.ResponseWriter;
 import my.restproto.common.security.SecurityConfig;
-import my.restproto.common.security.action.ActionAspect;
-import my.restproto.common.security.action.ActionCollections;
+import my.restproto.common.security.permission.PermissionAspect;
+import my.restproto.common.security.permission.PermissionCollections;
 import my.restproto.common.security.exception.AuthExceptionHandler;
 import my.restproto.common.security.exception.DenyHandler;
 import my.restproto.common.security.exception.UnAuthHandler;
@@ -21,10 +21,10 @@ import org.springframework.context.annotation.Import;
 @Import(SecurityConfig.class)
 public class SecurityAutoConfiguration {
 
-    /** 操作注册表 */
+    /** 权限注册表 */
     @Bean
-    public ActionCollections actionCollections() {
-        return new ActionCollections();
+    public PermissionCollections permissionCollections() {
+        return new PermissionCollections();
     }
 
     /** 未认证入口 */
@@ -45,9 +45,9 @@ public class SecurityAutoConfiguration {
         return new AuthExceptionHandler();
     }
 
-    /** Action 动态权限切面 */
+    /** Permission 动态权限切面 */
     @Bean
-    public ActionAspect actionAspect() {
-        return new ActionAspect();
+    public PermissionAspect permissionAspect() {
+        return new PermissionAspect();
     }
 }

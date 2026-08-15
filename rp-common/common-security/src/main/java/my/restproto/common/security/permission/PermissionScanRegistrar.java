@@ -1,6 +1,6 @@
-package my.restproto.common.security.action;
+package my.restproto.common.security.permission;
 
-import my.restproto.common.security.annotations.ActionScan;
+import my.restproto.common.security.annotations.PermissionScan;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 读取标注类上 ActionScan 的 basePackages, 注册 ActionCollector Bean
+ * 读取标注类上 PermissionScan 的 basePackages, 注册 PermissionCollector Bean
  */
-public class ActionScanRegistrar implements ImportBeanDefinitionRegistrar {
+public class PermissionScanRegistrar implements ImportBeanDefinitionRegistrar {
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        Map<String, Object> attributes = importingClassMetadata.getAnnotationAttributes(ActionScan.class.getName());
+        Map<String, Object> attributes = importingClassMetadata.getAnnotationAttributes(PermissionScan.class.getName());
         if (attributes == null) {
             return;
         }
@@ -28,12 +28,12 @@ public class ActionScanRegistrar implements ImportBeanDefinitionRegistrar {
         List<String> scanPackages = Arrays.stream(basePackages).toList();
 
         BeanDefinitionBuilder builder = BeanDefinitionBuilder
-                .genericBeanDefinition(ActionCollector.class);
+                .genericBeanDefinition(PermissionCollector.class);
 
         builder.addConstructorArgValue(scanPackages);
-        builder.addConstructorArgReference(StringUtils.uncapitalize(ActionCollections.class.getSimpleName()));
+        builder.addConstructorArgReference(StringUtils.uncapitalize(PermissionCollections.class.getSimpleName()));
 
         registry.registerBeanDefinition(
-                StringUtils.uncapitalize(ActionCollector.class.getSimpleName()), builder.getBeanDefinition());
+                StringUtils.uncapitalize(PermissionCollector.class.getSimpleName()), builder.getBeanDefinition());
     }
 }

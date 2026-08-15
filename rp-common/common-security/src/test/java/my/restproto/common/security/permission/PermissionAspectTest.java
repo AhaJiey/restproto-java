@@ -1,4 +1,4 @@
-package my.restproto.common.security.action;
+package my.restproto.common.security.permission;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Action 切面鉴权测试
+ * Permission 切面鉴权测试
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-class ActionAspectTest {
+class PermissionAspectTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -25,7 +25,7 @@ class ActionAspectTest {
     @Test
     @WithMockUser(authorities = "user:read")
     void authorized() throws Exception {
-        mockMvc.perform(get("/action-test/read"))
+        mockMvc.perform(get("/permission-test/read"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(0))
                 .andExpect(jsonPath("$.data").value("read"));
@@ -35,7 +35,7 @@ class ActionAspectTest {
     @Test
     @WithMockUser
     void unauthorized() throws Exception {
-        mockMvc.perform(get("/action-test/read"))
+        mockMvc.perform(get("/permission-test/read"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.code").value(1))
                 .andExpect(jsonPath("$.msg").value("无权限访问"));
@@ -44,7 +44,7 @@ class ActionAspectTest {
     /** 未认证访问: 401 */
     @Test
     void anonymous() throws Exception {
-        mockMvc.perform(get("/action-test/read"))
+        mockMvc.perform(get("/permission-test/read"))
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.code").value(1))
                 .andExpect(jsonPath("$.msg").value("未认证或认证已过期"));
@@ -54,7 +54,7 @@ class ActionAspectTest {
     @Test
     @WithMockUser(authorities = "user:read")
     void mismatchPermission() throws Exception {
-        mockMvc.perform(get("/action-test/write"))
+        mockMvc.perform(get("/permission-test/write"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.code").value(1));
     }
@@ -62,7 +62,7 @@ class ActionAspectTest {
     /** 无注解方法不被拦截: 匿名访问 200 */
     @Test
     void unannotatedNotIntercepted() throws Exception {
-        mockMvc.perform(get("/action-test/plain"))
+        mockMvc.perform(get("/permission-test/plain"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(0))
                 .andExpect(jsonPath("$.data").value("plain"));

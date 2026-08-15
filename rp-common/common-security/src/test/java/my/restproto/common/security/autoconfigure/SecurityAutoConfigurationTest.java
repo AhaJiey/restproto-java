@@ -2,8 +2,8 @@ package my.restproto.common.security.autoconfigure;
 
 import my.restproto.common.restful.autoconfigure.RestfulAutoConfiguration;
 import my.restproto.common.security.SecurityConfig;
-import my.restproto.common.security.action.ActionAspect;
-import my.restproto.common.security.action.ActionCollections;
+import my.restproto.common.security.permission.PermissionAspect;
+import my.restproto.common.security.permission.PermissionCollections;
 import my.restproto.common.security.exception.AuthExceptionHandler;
 import my.restproto.common.security.exception.DenyHandler;
 import my.restproto.common.security.exception.UnAuthHandler;
@@ -35,8 +35,8 @@ class SecurityAutoConfigurationTest {
             Assertions.assertThat(context).hasSingleBean(UnAuthHandler.class);
             Assertions.assertThat(context).hasSingleBean(DenyHandler.class);
             Assertions.assertThat(context).hasSingleBean(AuthExceptionHandler.class);
-            Assertions.assertThat(context).hasSingleBean(ActionCollections.class);
-            Assertions.assertThat(context).hasSingleBean(ActionAspect.class);
+            Assertions.assertThat(context).hasSingleBean(PermissionCollections.class);
+            Assertions.assertThat(context).hasSingleBean(PermissionAspect.class);
         });
     }
 }

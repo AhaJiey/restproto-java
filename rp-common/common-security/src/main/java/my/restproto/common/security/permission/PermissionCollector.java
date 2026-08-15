@@ -1,8 +1,8 @@
-package my.restproto.common.security.action;
+package my.restproto.common.security.permission;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import my.restproto.common.security.annotations.Action;
+import my.restproto.common.security.annotations.Permission;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.AnnotationMetadata;
@@ -14,34 +14,34 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Action 启动收集, 扫描 ActionScan 配置的包下含 Action 注解方法的类, 注册到注册表
+ * Permission 启动收集, 扫描 PermissionScan 配置的包下含 Permission 注解方法的类, 注册到注册表
  */
 @Slf4j
 @RequiredArgsConstructor
-public class ActionCollector implements SmartInitializingSingleton {
+public class PermissionCollector implements SmartInitializingSingleton {
 
     private final List<String> scanPackages;
 
-    private final ActionCollections collections;
+    private final PermissionCollections collections;
 
     @Override
     public void afterSingletonsInstantiated() {
         collect();
     }
 
-    /** 遍历扫描包, 将含 Action 注解方法的类收集到注册表 */
+    /** 遍历扫描包, 将含 Permission 注解方法的类收集到注册表 */
     private void collect() {
         if (CollectionUtils.isEmpty(scanPackages)) {
-            log.warn("ActionScan 未配置扫描包, 跳过 Action 收集");
+            log.warn("PermissionScan 未配置扫描包, 跳过 Permission 收集");
             return;
         }
         ClassPathScanningCandidateComponentProvider scanner =
                 new ClassPathScanningCandidateComponentProvider(false);
 
-        // 仅保留含 Action 注解方法的类
+        // 仅保留含 Permission 注解方法的类
         scanner.addIncludeFilter((reader, factory) -> {
             AnnotationMetadata metadata = reader.getAnnotationMetadata();
-            return !metadata.getAnnotatedMethods(Action.class.getCanonicalName()).isEmpty();
+            return !metadata.getAnnotatedMethods(Permission.class.getCanonicalName()).isEmpty();
         });
 
         for (String scanPackage : scanPackages) {
@@ -53,12 +53,12 @@ public class ActionCollector implements SmartInitializingSingleton {
         }
     }
 
-    /** 反射遍历声明方法, 注册 Action 注解 value */
+    /** 反射遍历声明方法, 注册 Permission 注解 value */
     private void registerClass(Class<?> clazz) {
         ReflectionUtils.doWithMethods(clazz, method -> {
-            Action action = method.getAnnotation(Action.class);
-            if (action != null) {
-                collections.register(action.value());
+            Permission permission = method.getAnnotation(Permission.class);
+            if (permission != null) {
+                collections.register(permission.value());
             }
         });
     }

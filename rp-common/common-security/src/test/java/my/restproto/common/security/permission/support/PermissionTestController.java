@@ -1,28 +1,28 @@
-package my.restproto.common.security.action.support;
+package my.restproto.common.security.permission.support;
 
 import my.restproto.common.restful.model.CommonResult;
-import my.restproto.common.security.annotations.Action;
+import my.restproto.common.security.annotations.Permission;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 测试触发接口, 用于覆盖 Action 扫描收集与切面鉴权
+ * 测试触发接口, 用于覆盖 Permission 扫描收集与切面鉴权
  */
 @RestController
-@RequestMapping("/action-test")
-public class ActionTestController {
+@RequestMapping("/permission-test")
+public class PermissionTestController {
 
-    /** 读取操作 */
+    /** 读取权限 */
     @GetMapping("/read")
-    @Action("user:read")
+    @Permission("user:read")
     public CommonResult<String> read() {
         return CommonResult.ok("read");
     }
 
-    /** 写入操作 */
+    /** 写入权限 */
     @GetMapping("/write")
-    @Action("user:write")
+    @Permission("user:write")
     public CommonResult<String> write() {
         return CommonResult.ok("write");
     }
