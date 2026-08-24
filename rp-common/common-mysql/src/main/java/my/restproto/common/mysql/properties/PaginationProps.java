@@ -8,11 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @ConfigurationProperties(prefix = "restproto.pagination")
-public class PaginationProperties {
+public class PaginationProps {
 
     /** 分页单页上限, -1 表示不限制 */
     private long maxLimit = 500L;
 
-    /** 页大小超出上限时是否溢出到最后一页 */
+    /** 当前页超出总页数时是否回退到第一页 */
     private boolean overflow = false;
 }

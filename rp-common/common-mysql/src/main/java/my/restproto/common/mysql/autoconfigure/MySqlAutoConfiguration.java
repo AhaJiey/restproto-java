@@ -1,17 +1,22 @@
 package my.restproto.common.mysql.autoconfigure;
 
-import my.restproto.common.mysql.config.MySqlContainerConfig;
+import my.restproto.common.mysql.config.LazydogMySqlContainerConfig;
 import my.restproto.common.mysql.config.MybatisPlusConfig;
-import my.restproto.common.mysql.properties.PaginationProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 /**
- * mysql 领域自动配置入口
+ * 装配 MyBatis-Plus 配置与懒狗 MySQL 容器配置
  */
+@AutoConfigureBefore({
+        ServiceConnectionAutoConfiguration.class
+})
+@Import({
+        MybatisPlusConfig.class,
+        LazydogMySqlContainerConfig.class
+})
 @AutoConfiguration
-@Import({MybatisPlusConfig.class, MySqlContainerConfig.class})
-@EnableConfigurationProperties(PaginationProperties.class)
 public class MySqlAutoConfiguration {
 }
