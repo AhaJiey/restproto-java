@@ -2,12 +2,12 @@ package my.restproto.common.exception.autoconfigure;
 
 import my.restproto.common.exception.GlobalExceptionFilter;
 import my.restproto.common.exception.GlobalExceptionHandler;
-import my.restproto.common.restful.tools.ResponseWriter;
+import my.restproto.common.restful.ResponseWriter;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * exception 领域自动配置, 注册全局异常处理组件
+ * 装配全局异常处理器与异常过滤器
  */
 @AutoConfiguration
 public class ExceptionAutoConfiguration {

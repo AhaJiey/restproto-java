@@ -6,10 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import my.restproto.common.restful.model.CommonResult;
-import my.restproto.common.restful.tools.ResponseWriter;
+import my.restproto.common.restful.CommonResult;
+import my.restproto.common.restful.ResponseWriter;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -23,7 +24,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class GlobalExceptionFilter extends OncePerRequestFilter {
 
-    /** 统一响应写入器 */
     private final ResponseWriter responseWriter;
 
     @Override
@@ -37,8 +37,8 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
         } catch (Exception ex) {
             log.error("逃逸异常: {}", ex.getMessage(), ex);
             responseWriter.write(response, ResponseEntity
-                    .status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR)
-                    .body(CommonResult.fail("系统异常, 请稍后重试"))
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(CommonResult.sysBoom())
             );
         }
     }
