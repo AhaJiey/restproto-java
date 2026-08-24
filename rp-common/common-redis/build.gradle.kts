@@ -6,7 +6,7 @@ dependencies {
     // 通过 catalog 引入 Spring Boot BOM 作为平台约束, 统一管理本模块依赖版本
     api(platform(libs.spring.boot.bom))
 
-    // spring data redis, 提供 Redis 连接与模板能力, 透传给使用方
+    // spring data redis, 提供 Redis 连接与模板能力
     api(libs.spring.boot.starter.data.redis)
 
     // jackson 序列化, 提供 JSON 编解码与时间类型支持
@@ -18,6 +18,8 @@ dependencies {
     implementation(libs.testcontainers.junit.jupiter)
     implementation(libs.testcontainers.redis)
 
-    // spring 测试
+    // awaitility, 异步等待断言
+    testImplementation(libs.awaitility)
+
     testImplementation(libs.spring.boot.starter.test)
 }
