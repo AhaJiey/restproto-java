@@ -6,14 +6,19 @@ dependencies {
     // 通过 catalog 引入 Spring Boot BOM 作为平台约束, 统一管理本模块依赖版本
     api(platform(libs.spring.boot.bom))
 
-    // 依赖 restful 基础模块, 透传 CommonResult 与响应写入能力
-    api(project(":rp-common:common-restful"))
-
-    // security, 提供无状态安全链与注解授权
+    // security, 提供无状态安全链与认证上下文
     api(libs.spring.boot.starter.security)
 
-    // AOP, 为 Action 动态权限切面提供代理支持
-    api(libs.spring.boot.starter.aop)
+    // 依赖 restful, 提供统一响应模型与响应写入能力
+    implementation(project(":rp-common:common-restful"))
+
+    // common-redis, 提供令牌撤销黑名单
+    implementation(project(":rp-common:common-redis"))
+
+    // jjwt, 版本显式声明, 提供令牌签发与解析
+    implementation(libs.jjwt.api)
+    runtimeOnly(libs.jjwt.impl)
+    runtimeOnly(libs.jjwt.jackson)
 
     // spring 测试
     testImplementation(libs.spring.boot.starter.test)

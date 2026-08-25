@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * auth 异常处理, 重新上抛交由安全框架按认证状态输出 401 或 403
+ * 安全异常处理, 重新上抛交由安全链按认证状态输出 401 或 403
  */
-@RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@RestControllerAdvice
 public class AuthExceptionHandler {
 
-    /** 上抛权限拒绝异常, 避免被全局 500 兜底提前捕获 */
+    /** 上抛权限拒绝异常 */
     @ExceptionHandler(AccessDeniedException.class)
     public void handleAccessDenied(AccessDeniedException ex) throws AccessDeniedException {
         throw ex;
     }
 
-    /** 上抛认证异常, 交由安全框架处理 */
+    /** 上抛认证异常 */
     @ExceptionHandler(AuthenticationException.class)
     public void handleAuthentication(AuthenticationException ex) throws AuthenticationException {
         throw ex;
