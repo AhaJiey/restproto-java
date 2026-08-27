@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("checkstyle")
 }
 
 allprojects {
@@ -10,6 +11,7 @@ allprojects {
 subprojects {
 
     plugins.apply("java")
+    plugins.apply("checkstyle")
 
     // Java 17 编译约束, 与 Spring Boot 3.5 基线一致
     java {
@@ -21,6 +23,14 @@ subprojects {
     // 编译期开启 -parameters, 使 Spring MVC 可通过反射获取控制器方法参数名
     tasks.withType<JavaCompile>().configureEach {
         options.compilerArgs.add("-parameters")
+    }
+
+    // 编辑风格配置
+    checkstyle {
+        toolVersion = rootProject.libs.versions.checkstyle.get()
+        configFile = file("${rootProject.projectDir}/checkstyle.xml")
+        isIgnoreFailures = false
+        maxWarnings = Int.MAX_VALUE
     }
 
     repositories {
