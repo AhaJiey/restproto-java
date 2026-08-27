@@ -5,34 +5,36 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import my.restproto.common.mysql.properties.PaginationProperties;
+import my.restproto.common.mysql.properties.PaginationProps;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 /**
- * MyBatis-Plus 配置
+ * 装配分页与全表防护拦截器、时间字段自动填充
  */
+@EnableConfigurationProperties({
+        PaginationProps.class
+})
 @Configuration
 public class MybatisPlusConfig {
 
-    /** 分页与全表操作防护拦截器, 消费者自定义时让位 */
+    /** 分页与全表操作防护拦截器 */
     @Bean
-    @ConditionalOnMissingBean(MybatisPlusInterceptor.class)
-    public MybatisPlusInterceptor mybatisPlusInterceptor(PaginationProperties properties) {
+    public MybatisPlusInterceptor mybatisPlusInterceptor(PaginationProps properties) {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 构造分页拦截器并应用配置项
+
+        // 阻止无 WHERE 的全表更新或删除
+        interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
+
         PaginationInnerInterceptor pagination = new PaginationInnerInterceptor(DbType.MYSQL);
         pagination.setMaxLimit(properties.getMaxLimit());
         pagination.setOverflow(properties.isOverflow());
         interceptor.addInnerInterceptor(pagination);
-
-        // 阻止无 WHERE 的全表更新或删除
-        interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
 
         return interceptor;
     }
@@ -45,15 +47,16 @@ public class MybatisPlusConfig {
         return new MetaObjectHandler() {
             @Override
             public void insertFill(MetaObject metaObject) {
-                // 插入时填充创建时间与更新时间
-                this.strictInsertFill(metaObject, createTimeField, LocalDateTime.class, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
-                this.strictInsertFill(metaObject, updateTimeField, LocalDateTime.class, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+                // 同一次插入的两个时间取同一时刻
+                Instant now = Instant.now().truncatedTo(ChronoUnit.SECONDS);
+                this.strictInsertFill(metaObject, createTimeField, Instant.class, now);
+                this.strictInsertFill(metaObject, updateTimeField, Instant.class, now);
             }
 
             @Override
             public void updateFill(MetaObject metaObject) {
-                // 更新时刷新更新时间
-                this.strictUpdateFill(metaObject, updateTimeField, LocalDateTime.class, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+                this.strictUpdateFill(metaObject, updateTimeField, Instant.class,
+                        Instant.now().truncatedTo(ChronoUnit.SECONDS));
             }
         };
     }

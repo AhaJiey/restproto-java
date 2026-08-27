@@ -1,19 +1,23 @@
 package my.restproto.common.restful.autoconfigure;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import my.restproto.common.restful.tools.ResponseWriter;
+import my.restproto.common.restful.ResponseWriter;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.context.annotation.Import;
 
 /**
- * restful 领域自动配置, 注册统一响应写入组件
+ * 在 servlet web 环境下装配 restful 模块的 ResponseWriter
  */
+@ConditionalOnWebApplication(type = Type.SERVLET)
+@AutoConfigureAfter({
+        JacksonAutoConfiguration.class
+})
+@Import({
+        ResponseWriter.class
+})
 @AutoConfiguration
 public class RestfulAutoConfiguration {
-
-    /** 统一响应写入器 */
-    @Bean
-    public ResponseWriter responseWriter(ObjectMapper objectMapper) {
-        return new ResponseWriter(objectMapper);
-    }
 }
